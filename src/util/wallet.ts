@@ -50,7 +50,12 @@ export const connectWallet = async () => {
 
 export const disconnectWallet = async () => {
   await kit.disconnect();
+  // A remounted WalletProvider must not recover stale account/network data.
+  // Clearing only walletId leaves the other three persisted fields behind.
   storage.removeItem("walletId");
+  storage.removeItem("walletAddress");
+  storage.removeItem("walletNetwork");
+  storage.removeItem("networkPassphrase");
 };
 
 function getHorizonHost(mode: string) {
