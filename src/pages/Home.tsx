@@ -1,6 +1,5 @@
 import React from "react";
 import { Code, Layout, Text } from "@stellar/design-system";
-import { GuessTheNumber } from "../components/GuessTheNumber";
 
 const Home: React.FC = () => (
   <Layout.Content>
@@ -38,25 +37,13 @@ const Home: React.FC = () => (
         packages (sometimes called "TypeScript bindings") for each of your
         contracts. You can adjust how it does this in the{" "}
         <Code size="md">environments.toml</Code> file. Import these frontend
-        packages like this:
+        packages for contracts that are configured and built in the current environment.
       </Text>
-      <pre>
-        <Code size="md">import game from "./contracts/guess_the_number";</Code>
-      </pre>
       <Text as="p" size="md">
         If your contract emits events, check out the{" "}
         <Code size="md">useSubscription</Code> hook in the{" "}
         <Code size="md">hooks/</Code> folder to listen to them.
       </Text>
-      <Text as="p" size="md">
-        As an example, here's the <Code size="md">GuessTheNumber</Code>{" "}
-        component. Make changes to the contract and the component and see how
-        things change!
-      </Text>
-      <Text as="h2" size="lg">
-        &lt;GuessTheNumber /&gt;
-      </Text>
-      <GuessTheNumber />
       <Text as="h2" size="lg">
         Interact with wallets
       </Text>
