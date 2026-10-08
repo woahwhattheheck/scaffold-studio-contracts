@@ -452,7 +452,7 @@ __constructor(root_hash)
 - [Rust](https://www.rust-lang.org/tools/install) 1.79+
 - [Stellar CLI](https://developers.stellar.org/docs/tools/developer-tools)
 - [Docker](https://www.docker.com/) (for local network)
-- [Node.js](https://nodejs.org/) 22+ (for TypeScript packages)
+- [Node.js](https://nodejs.org/) 22.12+ (for TypeScript packages; use `.nvmrc` for Node 22)
 
 ### Installation
 
