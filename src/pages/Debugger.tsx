@@ -20,30 +20,24 @@ const Debugger: React.FC = () => {
   const contractKeys = Array.from(
     new Set([...Object.keys(contractMap), ...Object.keys(failedContracts)]),
   );
+  const contractKeySignature = contractKeys.join(",");
   useEffect(() => {
-    if (!isLoading && contractKeys.length > 0) {
-      if (contractName && contractKeys.includes(contractName)) {
-        setSelectedContract(contractName);
-      } else {
-        setSelectedContract(contractKeys[0]);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contractName, isLoading, contractKeys.join(",")]);
+    if (isLoading || contractKeys.length === 0) return;
 
-  useEffect(() => {
-    if (!isLoading && contractKeys.length > 0) {
-      if (contractName && contractKeys.includes(contractName)) {
-        setSelectedContract(contractName);
-      } else if (!contractName) {
-        // Redirect to the first contract if no contractName in URL
-        navigate(`/debug/${contractKeys[0]}`, { replace: true });
-      } else {
-        setSelectedContract(contractKeys[0]);
-      }
+    const targetContract =
+      contractName && contractKeys.includes(contractName)
+        ? contractName
+        : contractKeys[0];
+    setSelectedContract((current) =>
+      current === targetContract ? current : targetContract,
+    );
+
+    if (!contractName) {
+      navigate(`/debug/${targetContract}`, { replace: true });
     }
+    // Contract keys are compared by their stable contents instead of array identity.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contractName, isLoading, contractKeys.join(",")]);
+  }, [contractName, isLoading, contractKeySignature, navigate]);
 
   if (isLoading) {
     return (
@@ -144,7 +138,7 @@ const Debugger: React.FC = () => {
       {contractMap[selectedContract] && (
         <>
           <Layout.Inset>
-            <div style={{ marginTop: "0 2rem" }}>
+            <div style={{ marginTop: "2rem" }}>
               <div style={{ display: "flex", flexFlow: "column", gap: "1rem" }}>
                 {/* Contract detail card */}
                 <div
